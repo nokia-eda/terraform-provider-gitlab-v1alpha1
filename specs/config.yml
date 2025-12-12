@@ -1,0 +1,133 @@
+provider:
+  name: gitlab
+
+data_sources:
+  app_group:
+    read:
+      path: /apps/gitlab.eda.nokia.com
+      method: GET
+
+  create_gitlab_issue:
+    read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}
+      method: GET
+
+  create_gitlab_issue_list:
+    read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues
+      method: GET
+
+  gitlab_instance:
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: GET
+
+  gitlab_instance_list:
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances
+      method: GET
+
+  gitlab_issue:
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: GET
+
+  gitlab_issue_list:
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues
+      method: GET
+
+  gitlab_pipeline:
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: GET
+
+  gitlab_pipeline_list:
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines
+      method: GET
+
+  resource_list:
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1
+      method: GET
+
+  run_gitlab_pipeline:
+    read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines/{name}
+      method: GET
+
+  run_gitlab_pipeline_list:
+    read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines
+      method: GET
+
+  workflow_get_inputs_resp_elem:
+    read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}/_input
+      method: GET
+
+resources:
+  create_gitlab_issue:
+    create:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues
+      method: POST
+    read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}
+      method: GET
+    delete:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}
+      method: DELETE
+
+  gitlab_instance:
+    create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances
+      method: POST
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: GET
+    update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: PUT
+    delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: DELETE
+
+  gitlab_issue:
+    create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues
+      method: POST
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: GET
+    update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: PUT
+    delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: DELETE
+
+  gitlab_pipeline:
+    create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines
+      method: POST
+    read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: GET
+    update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: PUT
+    delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: DELETE
+
+  run_gitlab_pipeline:
+    create:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines
+      method: POST
+    read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines/{name}
+      method: GET
+    delete:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines/{name}
+      method: DELETE

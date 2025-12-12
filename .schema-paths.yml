@@ -1,0 +1,273 @@
+app_group:
+  - read:
+      path: /apps/gitlab.eda.nokia.com
+      method: GET
+
+intent_targets:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}/_targets
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}/_targets
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}/_targets
+      method: GET
+
+k8_s_topology_request:
+  - create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}/_topology
+      method: POST
+  - create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}/_topology
+      method: POST
+  - create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}/_topology
+      method: POST
+
+patch:
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: PATCH
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: PATCH
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: PATCH
+
+resource_history:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}/_revs
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}/_revs
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}/_revs
+      method: GET
+
+resource_list:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1
+      method: GET
+
+resource_topology:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}/_topology
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}/_topology
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}/_topology
+      method: GET
+
+status:
+  - delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: DELETE
+  - delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: DELETE
+  - delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: DELETE
+
+ui_result:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/_ui/{pathname}
+      method: GET
+
+workflow_get_inputs_resp_elem:
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}/_input
+      method: GET
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines/{name}/_input
+      method: GET
+
+workflow_input_data:
+  - update:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}/_input
+      method: PUT
+  - update:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines/{name}/_input
+      method: PUT
+
+com.nokia.eda.gitlab.v1alpha1.create_gitlab_issue:
+  - create:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues
+      method: POST
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}
+      method: GET
+
+com.nokia.eda.gitlab.v1alpha1.create_gitlab_issue_list:
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/creategitlabissues
+      method: GET
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues
+      method: GET
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_instance:
+  - create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances
+      method: POST
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: GET
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: PUT
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_instance_list:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/gitlabinstances
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances
+      method: GET
+  - delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances
+      method: DELETE
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_instance_deleted_resources:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/_deleted
+      method: GET
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_issue:
+  - create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues
+      method: POST
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: GET
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: PUT
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_issue_list:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/gitlabissues
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues
+      method: GET
+  - delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues
+      method: DELETE
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_issue_deleted_resources:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/_deleted
+      method: GET
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_pipeline:
+  - create:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines
+      method: POST
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: GET
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: PUT
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_pipeline_list:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/gitlabpipelines
+      method: GET
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines
+      method: GET
+  - delete:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines
+      method: DELETE
+
+com.nokia.eda.gitlab.v1alpha1.gitlab_pipeline_deleted_resources:
+  - read:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/_deleted
+      method: GET
+
+com.nokia.eda.gitlab.v1alpha1.run_gitlab_pipeline:
+  - create:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines
+      method: POST
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines/{name}
+      method: GET
+
+com.nokia.eda.gitlab.v1alpha1.run_gitlab_pipeline_list:
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines
+      method: GET
+  - read:
+      path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/rungitlabpipelines
+      method: GET
+
+totalPaths: 40
+totalSchemas: 82
+usedSchemas: 24
+unusedSchemas: 58
+unusedSchemaList:
+  - AppGroupVersion
+  - ErrorIndex
+  - ErrorItem
+  - ErrorResponse
+  - IntentTarget
+  - K8SPatchOp
+  - OverlayState
+  - Resource
+  - ResourceHistoryEntry
+  - StatusDetails
+  - TopoAttrMetadata
+  - TopoAttribute
+  - TopoBoolExpression
+  - TopoBoolLiteral
+  - TopoElemMetadata
+  - TopoEndpointBoolExpression
+  - TopoField
+  - TopoFixedBoolExpression
+  - TopoLabelSelector
+  - TopoLiteralStatusOrBadge
+  - TopoLiteralValue
+  - TopoLogicalExpression
+  - TopoNodeGrouping
+  - TopoOverlayEndpoint
+  - TopoOverlayEndpointState
+  - TopoOverlayLink
+  - TopoOverlayLinkGroup
+  - TopoOverlayLinkGroupEndpoint
+  - TopoOverlayLinkState
+  - TopoOverlayNode
+  - TopoOverlayNodeOrGroup
+  - TopoOverlayNodeState
+  - TopoOverlayValue
+  - TopoSchema
+  - TopoStateFilter
+  - TopoValue
+  - TopoValueExpression
+  - Topology
+  - WorkflowIdentifier
+  - WorkflowInputDataElem
+  - com.nokia.eda.gitlab.v1alpha1.CreateGitlabIssue_alarms
+  - com.nokia.eda.gitlab.v1alpha1.CreateGitlabIssue_deviations
+  - com.nokia.eda.gitlab.v1alpha1.CreateGitlabIssue_metadata
+  - com.nokia.eda.gitlab.v1alpha1.GitlabInstance_DeletedResourceEntry
+  - com.nokia.eda.gitlab.v1alpha1.GitlabInstance_alarms
+  - com.nokia.eda.gitlab.v1alpha1.GitlabInstance_deviations
+  - com.nokia.eda.gitlab.v1alpha1.GitlabInstance_metadata
+  - com.nokia.eda.gitlab.v1alpha1.GitlabIssue_DeletedResourceEntry
+  - com.nokia.eda.gitlab.v1alpha1.GitlabIssue_alarms
+  - com.nokia.eda.gitlab.v1alpha1.GitlabIssue_deviations
+  - com.nokia.eda.gitlab.v1alpha1.GitlabIssue_metadata
+  - com.nokia.eda.gitlab.v1alpha1.GitlabPipeline_DeletedResourceEntry
+  - com.nokia.eda.gitlab.v1alpha1.GitlabPipeline_alarms
+  - com.nokia.eda.gitlab.v1alpha1.GitlabPipeline_deviations
+  - com.nokia.eda.gitlab.v1alpha1.GitlabPipeline_metadata
+  - com.nokia.eda.gitlab.v1alpha1.RunGitlabPipeline_alarms
+  - com.nokia.eda.gitlab.v1alpha1.RunGitlabPipeline_deviations
+  - com.nokia.eda.gitlab.v1alpha1.RunGitlabPipeline_metadata
