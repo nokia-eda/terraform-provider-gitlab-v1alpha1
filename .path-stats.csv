@@ -11,7 +11,7 @@ Path,Method,Schema,Model Name,Supported,Datasource,Resource
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/_deleted,GET,com.nokia.eda.gitlab.v1alpha1.GitlabInstance_DeletedResources,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name},DELETE,Status,gitlab_instance,true,false,true
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name},GET,com.nokia.eda.gitlab.v1alpha1.GitlabInstance,gitlab_instance,true,true,true
-/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name},PATCH,Patch,,false,false,false
+/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name},PATCH,com.nokia.eda.gitlab.v1alpha1.GitlabInstance,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name},PUT,com.nokia.eda.gitlab.v1alpha1.GitlabInstance,gitlab_instance,true,false,true
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}/_revs,GET,ResourceHistory,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}/_targets,GET,IntentTargets,,false,false,false
@@ -23,7 +23,7 @@ Path,Method,Schema,Model Name,Supported,Datasource,Resource
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/_deleted,GET,com.nokia.eda.gitlab.v1alpha1.GitlabIssue_DeletedResources,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name},DELETE,Status,gitlab_issue,true,false,true
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name},GET,com.nokia.eda.gitlab.v1alpha1.GitlabIssue,gitlab_issue,true,true,true
-/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name},PATCH,Patch,,false,false,false
+/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name},PATCH,com.nokia.eda.gitlab.v1alpha1.GitlabIssue,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name},PUT,com.nokia.eda.gitlab.v1alpha1.GitlabIssue,gitlab_issue,true,false,true
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}/_revs,GET,ResourceHistory,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}/_targets,GET,IntentTargets,,false,false,false
@@ -35,7 +35,7 @@ Path,Method,Schema,Model Name,Supported,Datasource,Resource
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/_deleted,GET,com.nokia.eda.gitlab.v1alpha1.GitlabPipeline_DeletedResources,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name},DELETE,Status,gitlab_pipeline,true,false,true
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name},GET,com.nokia.eda.gitlab.v1alpha1.GitlabPipeline,gitlab_pipeline,true,true,true
-/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name},PATCH,Patch,,false,false,false
+/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name},PATCH,com.nokia.eda.gitlab.v1alpha1.GitlabPipeline,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name},PUT,com.nokia.eda.gitlab.v1alpha1.GitlabPipeline,gitlab_pipeline,true,false,true
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}/_revs,GET,ResourceHistory,,false,false,false
 /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}/_targets,GET,IntentTargets,,false,false,false

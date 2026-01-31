@@ -25,17 +25,6 @@ k8_s_topology_request:
       path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}/_topology
       method: POST
 
-patch:
-  - update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
-      method: PATCH
-  - update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
-      method: PATCH
-  - update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
-      method: PATCH
-
 resource_history:
   - read:
       path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}/_revs
@@ -121,6 +110,9 @@ com.nokia.eda.gitlab.v1alpha1.gitlab_instance:
   - update:
       path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
       method: PUT
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+      method: PATCH
 
 com.nokia.eda.gitlab.v1alpha1.gitlab_instance_list:
   - read:
@@ -148,6 +140,9 @@ com.nokia.eda.gitlab.v1alpha1.gitlab_issue:
   - update:
       path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
       method: PUT
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+      method: PATCH
 
 com.nokia.eda.gitlab.v1alpha1.gitlab_issue_list:
   - read:
@@ -175,6 +170,9 @@ com.nokia.eda.gitlab.v1alpha1.gitlab_pipeline:
   - update:
       path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
       method: PUT
+  - update:
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+      method: PATCH
 
 com.nokia.eda.gitlab.v1alpha1.gitlab_pipeline_list:
   - read:
@@ -210,8 +208,8 @@ com.nokia.eda.gitlab.v1alpha1.run_gitlab_pipeline_list:
 
 totalPaths: 40
 totalSchemas: 82
-usedSchemas: 24
-unusedSchemas: 58
+usedSchemas: 23
+unusedSchemas: 59
 unusedSchemaList:
   - AppGroupVersion
   - ErrorIndex
@@ -220,6 +218,7 @@ unusedSchemaList:
   - IntentTarget
   - K8SPatchOp
   - OverlayState
+  - Patch
   - Resource
   - ResourceHistoryEntry
   - StatusDetails
