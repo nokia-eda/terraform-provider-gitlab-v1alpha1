@@ -59,17 +59,17 @@ Optional:
 
 Optional:
 
-- `dynamic_value` (Attributes) (see [below for nested schema](#nestedatt--spec--parameters--value--dynamic_value))
-- `static_value` (String)
+- `dynamic_value` (Attributes) Dynamic value. (see [below for nested schema](#nestedatt--spec--parameters--value--dynamic_value))
+- `static_value` (String) Static value.
 
 <a id="nestedatt--spec--parameters--value--dynamic_value"></a>
 ### Nested Schema for `spec.parameters.value.dynamic_value`
 
 Optional:
 
-- `field` (String)
-- `path` (String)
-- `where` (String)
+- `field` (String) Field to watch.
+- `path` (String) Path to the value.
+- `where` (String) Where clause to filter the results.
 
 
 
@@ -79,8 +79,8 @@ Optional:
 
 Optional:
 
-- `alarm` (Attributes) (see [below for nested schema](#nestedatt--spec--trigger--alarm))
-- `query` (Attributes) (see [below for nested schema](#nestedatt--spec--trigger--query))
+- `alarm` (Attributes) Alarm trigger. (see [below for nested schema](#nestedatt--spec--trigger--alarm))
+- `query` (Attributes) Query trigger. (see [below for nested schema](#nestedatt--spec--trigger--query))
 
 <a id="nestedatt--spec--trigger--alarm"></a>
 ### Nested Schema for `spec.trigger.alarm`

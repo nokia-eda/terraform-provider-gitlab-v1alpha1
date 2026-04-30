@@ -83,3 +83,9 @@ Optional:
 
 <a id="nestedatt--status"></a>
 ### Nested Schema for `status`
+
+Optional:
+
+- `connected` (Boolean) Whether the instance is connected.
+- `error` (String) Error message if the instance is not connected.
+- `last_checked` (String) Last checked time.
