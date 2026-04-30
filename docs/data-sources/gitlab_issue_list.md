@@ -23,7 +23,7 @@ description: |-
 
 - `fields` (String) a comma-separated list of resource fields to fetch/return.  If unspecified, all fields are fetched.  If empty, only key-fields are fetched.
 - `filter` (String) an EQL "where" expression that will be used to filter the set of resources returned.
-- `label_selector` (String) a label selector string to filter the results based on CR labels
+- `label_selector` (String) A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.
 - `labelselector` (String) Deprecated: a label selector string to filter the results based on CR labels
 
 ### Read-Only
@@ -55,9 +55,9 @@ Optional:
 
 - `close_on_resolve` (Boolean) Close the issue when resolved.
 - `instance` (String) Gitlab instance name.
-- `issue` (Attributes) (see [below for nested schema](#nestedatt--items--spec--issue))
-- `repo` (String)
-- `trigger` (Attributes) (see [below for nested schema](#nestedatt--items--spec--trigger))
+- `issue` (Attributes) Issue to create. (see [below for nested schema](#nestedatt--items--spec--issue))
+- `repo` (String) Repository to create the issue.
+- `trigger` (Attributes) Trigger conditions to create the issue. (see [below for nested schema](#nestedatt--items--spec--trigger))
 
 <a id="nestedatt--items--spec--issue"></a>
 ### Nested Schema for `items.spec.issue`
@@ -76,8 +76,8 @@ Optional:
 
 Optional:
 
-- `alarm` (Attributes) (see [below for nested schema](#nestedatt--items--spec--trigger--alarm))
-- `query` (Attributes) (see [below for nested schema](#nestedatt--items--spec--trigger--query))
+- `alarm` (Attributes) Alarm trigger. (see [below for nested schema](#nestedatt--items--spec--trigger--alarm))
+- `query` (Attributes) Query trigger. (see [below for nested schema](#nestedatt--items--spec--trigger--query))
 
 <a id="nestedatt--items--spec--trigger--alarm"></a>
 ### Nested Schema for `items.spec.trigger.alarm`

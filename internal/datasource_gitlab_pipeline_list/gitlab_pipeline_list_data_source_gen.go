@@ -121,13 +121,19 @@ func GitlabPipelineListDataSourceSchema(ctx context.Context) schema.Schema {
 													"dynamic_value": schema.SingleNestedAttribute{
 														Attributes: map[string]schema.Attribute{
 															"field": schema.StringAttribute{
-																Optional: true,
+																Optional:            true,
+																Description:         "Field to watch.",
+																MarkdownDescription: "Field to watch.",
 															},
 															"path": schema.StringAttribute{
-																Optional: true,
+																Optional:            true,
+																Description:         "Path to the value.",
+																MarkdownDescription: "Path to the value.",
 															},
 															"where": schema.StringAttribute{
-																Optional: true,
+																Optional:            true,
+																Description:         "Where clause to filter the results.",
+																MarkdownDescription: "Where clause to filter the results.",
 															},
 														},
 														CustomType: DynamicValueType{
@@ -135,10 +141,14 @@ func GitlabPipelineListDataSourceSchema(ctx context.Context) schema.Schema {
 																AttrTypes: DynamicValueValue{}.AttributeTypes(ctx),
 															},
 														},
-														Optional: true,
+														Optional:            true,
+														Description:         "Dynamic value.",
+														MarkdownDescription: "Dynamic value.",
 													},
 													"static_value": schema.StringAttribute{
-														Optional: true,
+														Optional:            true,
+														Description:         "Static value.",
+														MarkdownDescription: "Static value.",
 													},
 												},
 												CustomType: ValueType{
@@ -198,7 +208,9 @@ func GitlabPipelineListDataSourceSchema(ctx context.Context) schema.Schema {
 													AttrTypes: AlarmValue{}.AttributeTypes(ctx),
 												},
 											},
-											Optional: true,
+											Optional:            true,
+											Description:         "Alarm trigger.",
+											MarkdownDescription: "Alarm trigger.",
 										},
 										"query": schema.SingleNestedAttribute{
 											Attributes: map[string]schema.Attribute{
@@ -224,7 +236,9 @@ func GitlabPipelineListDataSourceSchema(ctx context.Context) schema.Schema {
 													AttrTypes: QueryValue{}.AttributeTypes(ctx),
 												},
 											},
-											Optional: true,
+											Optional:            true,
+											Description:         "Query trigger.",
+											MarkdownDescription: "Query trigger.",
 										},
 									},
 									CustomType: TriggerType{
@@ -272,8 +286,8 @@ func GitlabPipelineListDataSourceSchema(ctx context.Context) schema.Schema {
 			"label_selector": schema.StringAttribute{
 				Optional:            true,
 				Computed:            true,
-				Description:         "a label selector string to filter the results based on CR labels",
-				MarkdownDescription: "a label selector string to filter the results based on CR labels",
+				Description:         "A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.",
+				MarkdownDescription: "A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.",
 			},
 			"labelselector": schema.StringAttribute{
 				Optional:            true,

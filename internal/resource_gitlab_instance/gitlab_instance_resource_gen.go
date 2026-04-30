@@ -162,7 +162,26 @@ func GitlabInstanceResourceSchema(ctx context.Context) schema.Schema {
 				MarkdownDescription: "spec defines the desired state of GitlabInstance",
 			},
 			"status": schema.SingleNestedAttribute{
-				Attributes: map[string]schema.Attribute{},
+				Attributes: map[string]schema.Attribute{
+					"connected": schema.BoolAttribute{
+						Optional:            true,
+						Computed:            true,
+						Description:         "Whether the instance is connected.",
+						MarkdownDescription: "Whether the instance is connected.",
+					},
+					"error": schema.StringAttribute{
+						Optional:            true,
+						Computed:            true,
+						Description:         "Error message if the instance is not connected.",
+						MarkdownDescription: "Error message if the instance is not connected.",
+					},
+					"last_checked": schema.StringAttribute{
+						Optional:            true,
+						Computed:            true,
+						Description:         "Last checked time.",
+						MarkdownDescription: "Last checked time.",
+					},
+				},
 				CustomType: StatusType{
 					ObjectType: types.ObjectType{
 						AttrTypes: StatusValue{}.AttributeTypes(ctx),
@@ -2361,12 +2380,71 @@ func (t StatusType) String() string {
 func (t StatusType) ValueFromObject(ctx context.Context, in basetypes.ObjectValue) (basetypes.ObjectValuable, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
+	attributes := in.Attributes()
+
+	connectedAttribute, ok := attributes["connected"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`connected is missing from object`)
+
+		return nil, diags
+	}
+
+	connectedVal, ok := connectedAttribute.(basetypes.BoolValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`connected expected to be basetypes.BoolValue, was: %T`, connectedAttribute))
+	}
+
+	errorAttribute, ok := attributes["error"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`error is missing from object`)
+
+		return nil, diags
+	}
+
+	errorVal, ok := errorAttribute.(basetypes.StringValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`error expected to be basetypes.StringValue, was: %T`, errorAttribute))
+	}
+
+	lastCheckedAttribute, ok := attributes["last_checked"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`last_checked is missing from object`)
+
+		return nil, diags
+	}
+
+	lastCheckedVal, ok := lastCheckedAttribute.(basetypes.StringValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`last_checked expected to be basetypes.StringValue, was: %T`, lastCheckedAttribute))
+	}
+
 	if diags.HasError() {
 		return nil, diags
 	}
 
 	return StatusValue{
-		state: attr.ValueStateKnown,
+		Connected:   connectedVal,
+		Error:       errorVal,
+		LastChecked: lastCheckedVal,
+		state:       attr.ValueStateKnown,
 	}, diags
 }
 
@@ -2433,12 +2511,69 @@ func NewStatusValue(attributeTypes map[string]attr.Type, attributes map[string]a
 		return NewStatusValueUnknown(), diags
 	}
 
+	connectedAttribute, ok := attributes["connected"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`connected is missing from object`)
+
+		return NewStatusValueUnknown(), diags
+	}
+
+	connectedVal, ok := connectedAttribute.(basetypes.BoolValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`connected expected to be basetypes.BoolValue, was: %T`, connectedAttribute))
+	}
+
+	errorAttribute, ok := attributes["error"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`error is missing from object`)
+
+		return NewStatusValueUnknown(), diags
+	}
+
+	errorVal, ok := errorAttribute.(basetypes.StringValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`error expected to be basetypes.StringValue, was: %T`, errorAttribute))
+	}
+
+	lastCheckedAttribute, ok := attributes["last_checked"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`last_checked is missing from object`)
+
+		return NewStatusValueUnknown(), diags
+	}
+
+	lastCheckedVal, ok := lastCheckedAttribute.(basetypes.StringValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`last_checked expected to be basetypes.StringValue, was: %T`, lastCheckedAttribute))
+	}
+
 	if diags.HasError() {
 		return NewStatusValueUnknown(), diags
 	}
 
 	return StatusValue{
-		state: attr.ValueStateKnown,
+		Connected:   connectedVal,
+		Error:       errorVal,
+		LastChecked: lastCheckedVal,
+		state:       attr.ValueStateKnown,
 	}, diags
 }
 
@@ -2510,17 +2645,51 @@ func (t StatusType) ValueType(ctx context.Context) attr.Value {
 var _ basetypes.ObjectValuable = StatusValue{}
 
 type StatusValue struct {
-	state attr.ValueState
+	Connected   basetypes.BoolValue   `tfsdk:"connected"`
+	Error       basetypes.StringValue `tfsdk:"error"`
+	LastChecked basetypes.StringValue `tfsdk:"last_checked"`
+	state       attr.ValueState
 }
 
 func (v StatusValue) ToTerraformValue(ctx context.Context) (tftypes.Value, error) {
-	attrTypes := make(map[string]tftypes.Type, 0)
+	attrTypes := make(map[string]tftypes.Type, 3)
+
+	var val tftypes.Value
+	var err error
+
+	attrTypes["connected"] = basetypes.BoolType{}.TerraformType(ctx)
+	attrTypes["error"] = basetypes.StringType{}.TerraformType(ctx)
+	attrTypes["last_checked"] = basetypes.StringType{}.TerraformType(ctx)
 
 	objectType := tftypes.Object{AttributeTypes: attrTypes}
 
 	switch v.state {
 	case attr.ValueStateKnown:
-		vals := make(map[string]tftypes.Value, 0)
+		vals := make(map[string]tftypes.Value, 3)
+
+		val, err = v.Connected.ToTerraformValue(ctx)
+
+		if err != nil {
+			return tftypes.NewValue(objectType, tftypes.UnknownValue), err
+		}
+
+		vals["connected"] = val
+
+		val, err = v.Error.ToTerraformValue(ctx)
+
+		if err != nil {
+			return tftypes.NewValue(objectType, tftypes.UnknownValue), err
+		}
+
+		vals["error"] = val
+
+		val, err = v.LastChecked.ToTerraformValue(ctx)
+
+		if err != nil {
+			return tftypes.NewValue(objectType, tftypes.UnknownValue), err
+		}
+
+		vals["last_checked"] = val
 
 		if err := tftypes.ValidateValue(objectType, vals); err != nil {
 			return tftypes.NewValue(objectType, tftypes.UnknownValue), err
@@ -2551,7 +2720,11 @@ func (v StatusValue) String() string {
 func (v StatusValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
-	attributeTypes := map[string]attr.Type{}
+	attributeTypes := map[string]attr.Type{
+		"connected":    basetypes.BoolType{},
+		"error":        basetypes.StringType{},
+		"last_checked": basetypes.StringType{},
+	}
 
 	if v.IsNull() {
 		return types.ObjectNull(attributeTypes), diags
@@ -2563,7 +2736,11 @@ func (v StatusValue) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, 
 
 	objVal, diags := types.ObjectValue(
 		attributeTypes,
-		map[string]attr.Value{})
+		map[string]attr.Value{
+			"connected":    v.Connected,
+			"error":        v.Error,
+			"last_checked": v.LastChecked,
+		})
 
 	return objVal, diags
 }
@@ -2583,6 +2760,18 @@ func (v StatusValue) Equal(o attr.Value) bool {
 		return true
 	}
 
+	if !v.Connected.Equal(other.Connected) {
+		return false
+	}
+
+	if !v.Error.Equal(other.Error) {
+		return false
+	}
+
+	if !v.LastChecked.Equal(other.LastChecked) {
+		return false
+	}
+
 	return true
 }
 
@@ -2595,5 +2784,9 @@ func (v StatusValue) Type(ctx context.Context) attr.Type {
 }
 
 func (v StatusValue) AttributeTypes(ctx context.Context) map[string]attr.Type {
-	return map[string]attr.Type{}
+	return map[string]attr.Type{
+		"connected":    basetypes.BoolType{},
+		"error":        basetypes.StringType{},
+		"last_checked": basetypes.StringType{},
+	}
 }

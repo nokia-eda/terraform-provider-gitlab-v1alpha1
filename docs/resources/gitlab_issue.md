@@ -51,9 +51,9 @@ Optional:
 
 - `close_on_resolve` (Boolean) Close the issue when resolved.
 - `instance` (String) Gitlab instance name.
-- `issue` (Attributes) (see [below for nested schema](#nestedatt--spec--issue))
-- `repo` (String)
-- `trigger` (Attributes) (see [below for nested schema](#nestedatt--spec--trigger))
+- `issue` (Attributes) Issue to create. (see [below for nested schema](#nestedatt--spec--issue))
+- `repo` (String) Repository to create the issue.
+- `trigger` (Attributes) Trigger conditions to create the issue. (see [below for nested schema](#nestedatt--spec--trigger))
 
 <a id="nestedatt--spec--issue"></a>
 ### Nested Schema for `spec.issue`
@@ -72,8 +72,8 @@ Optional:
 
 Optional:
 
-- `alarm` (Attributes) (see [below for nested schema](#nestedatt--spec--trigger--alarm))
-- `query` (Attributes) (see [below for nested schema](#nestedatt--spec--trigger--query))
+- `alarm` (Attributes) Alarm trigger. (see [below for nested schema](#nestedatt--spec--trigger--alarm))
+- `query` (Attributes) Query trigger. (see [below for nested schema](#nestedatt--spec--trigger--query))
 
 <a id="nestedatt--spec--trigger--alarm"></a>
 ### Nested Schema for `spec.trigger.alarm`

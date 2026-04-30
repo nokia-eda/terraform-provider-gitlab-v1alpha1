@@ -146,10 +146,14 @@ func GitlabIssueDataSourceSchema(ctx context.Context) schema.Schema {
 								AttrTypes: IssueValue{}.AttributeTypes(ctx),
 							},
 						},
-						Optional: true,
+						Optional:            true,
+						Description:         "Issue to create.",
+						MarkdownDescription: "Issue to create.",
 					},
 					"repo": schema.StringAttribute{
-						Optional: true,
+						Optional:            true,
+						Description:         "Repository to create the issue.",
+						MarkdownDescription: "Repository to create the issue.",
 					},
 					"trigger": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
@@ -173,7 +177,9 @@ func GitlabIssueDataSourceSchema(ctx context.Context) schema.Schema {
 										AttrTypes: AlarmValue{}.AttributeTypes(ctx),
 									},
 								},
-								Optional: true,
+								Optional:            true,
+								Description:         "Alarm trigger.",
+								MarkdownDescription: "Alarm trigger.",
 							},
 							"query": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
@@ -199,7 +205,9 @@ func GitlabIssueDataSourceSchema(ctx context.Context) schema.Schema {
 										AttrTypes: QueryValue{}.AttributeTypes(ctx),
 									},
 								},
-								Optional: true,
+								Optional:            true,
+								Description:         "Query trigger.",
+								MarkdownDescription: "Query trigger.",
 							},
 						},
 						CustomType: TriggerType{
@@ -207,7 +215,9 @@ func GitlabIssueDataSourceSchema(ctx context.Context) schema.Schema {
 								AttrTypes: TriggerValue{}.AttributeTypes(ctx),
 							},
 						},
-						Optional: true,
+						Optional:            true,
+						Description:         "Trigger conditions to create the issue.",
+						MarkdownDescription: "Trigger conditions to create the issue.",
 					},
 				},
 				CustomType: SpecType{
