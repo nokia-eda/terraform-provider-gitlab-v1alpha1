@@ -148,14 +148,10 @@ func GitlabIssueListDataSourceSchema(ctx context.Context) schema.Schema {
 											AttrTypes: IssueValue{}.AttributeTypes(ctx),
 										},
 									},
-									Optional:            true,
-									Description:         "Issue to create.",
-									MarkdownDescription: "Issue to create.",
+									Optional: true,
 								},
 								"repo": schema.StringAttribute{
-									Optional:            true,
-									Description:         "Repository to create the issue.",
-									MarkdownDescription: "Repository to create the issue.",
+									Optional: true,
 								},
 								"trigger": schema.SingleNestedAttribute{
 									Attributes: map[string]schema.Attribute{
@@ -179,9 +175,7 @@ func GitlabIssueListDataSourceSchema(ctx context.Context) schema.Schema {
 													AttrTypes: AlarmValue{}.AttributeTypes(ctx),
 												},
 											},
-											Optional:            true,
-											Description:         "Alarm trigger.",
-											MarkdownDescription: "Alarm trigger.",
+											Optional: true,
 										},
 										"query": schema.SingleNestedAttribute{
 											Attributes: map[string]schema.Attribute{
@@ -207,9 +201,7 @@ func GitlabIssueListDataSourceSchema(ctx context.Context) schema.Schema {
 													AttrTypes: QueryValue{}.AttributeTypes(ctx),
 												},
 											},
-											Optional:            true,
-											Description:         "Query trigger.",
-											MarkdownDescription: "Query trigger.",
+											Optional: true,
 										},
 									},
 									CustomType: TriggerType{
@@ -217,9 +209,7 @@ func GitlabIssueListDataSourceSchema(ctx context.Context) schema.Schema {
 											AttrTypes: TriggerValue{}.AttributeTypes(ctx),
 										},
 									},
-									Optional:            true,
-									Description:         "Trigger conditions to create the issue.",
-									MarkdownDescription: "Trigger conditions to create the issue.",
+									Optional: true,
 								},
 							},
 							CustomType: SpecType{
@@ -257,8 +247,8 @@ func GitlabIssueListDataSourceSchema(ctx context.Context) schema.Schema {
 			"label_selector": schema.StringAttribute{
 				Optional:            true,
 				Computed:            true,
-				Description:         "A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.",
-				MarkdownDescription: "A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.",
+				Description:         "a label selector string to filter the results based on CR labels",
+				MarkdownDescription: "a label selector string to filter the results based on CR labels",
 			},
 			"labelselector": schema.StringAttribute{
 				Optional:            true,

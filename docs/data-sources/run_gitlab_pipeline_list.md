@@ -23,7 +23,7 @@ description: |-
 
 - `fields` (String) a comma-separated list of resource fields to fetch/return.  If unspecified, all fields are fetched.  If empty, only key-fields are fetched.
 - `filter` (String) an EQL "where" expression that will be used to filter the set of resources returned.
-- `label_selector` (String) A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.
+- `label_selector` (String) a label selector string to filter the results based on CR labels
 - `labelselector` (String) Deprecated: a label selector string to filter the results based on CR labels
 
 ### Read-Only
@@ -72,17 +72,17 @@ Optional:
 
 Optional:
 
-- `dynamic_value` (Attributes) Dynamic value. (see [below for nested schema](#nestedatt--items--spec--parameters--value--dynamic_value))
-- `static_value` (String) Static value.
+- `dynamic_value` (Attributes) (see [below for nested schema](#nestedatt--items--spec--parameters--value--dynamic_value))
+- `static_value` (String)
 
 <a id="nestedatt--items--spec--parameters--value--dynamic_value"></a>
 ### Nested Schema for `items.spec.parameters.value.dynamic_value`
 
 Optional:
 
-- `field` (String) Field to watch.
-- `path` (String) Path to the value.
-- `where` (String) Where clause to filter the results.
+- `field` (String)
+- `path` (String)
+- `where` (String)
 
 
 

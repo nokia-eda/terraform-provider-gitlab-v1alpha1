@@ -252,12 +252,6 @@ func (p *gitlabProvider) Metadata(ctx context.Context, req provider.MetadataRequ
 func (p *gitlabProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		NewAppGroupDataSource,
-		NewClusterGitlabInstanceDataSource,
-		NewClusterGitlabInstanceListDataSource,
-		NewClusterGitlabIssueDataSource,
-		NewClusterGitlabIssueListDataSource,
-		NewClusterGitlabPipelineDataSource,
-		NewClusterGitlabPipelineListDataSource,
 		NewCreateGitlabIssueDataSource,
 		NewCreateGitlabIssueListDataSource,
 		NewGitlabInstanceDataSource,
@@ -275,9 +269,6 @@ func (p *gitlabProvider) DataSources(ctx context.Context) []func() datasource.Da
 
 func (p *gitlabProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewClusterGitlabInstanceResource,
-		NewClusterGitlabIssueResource,
-		NewClusterGitlabPipelineResource,
 		NewCreateGitlabIssueResource,
 		NewGitlabInstanceResource,
 		NewGitlabIssueResource,

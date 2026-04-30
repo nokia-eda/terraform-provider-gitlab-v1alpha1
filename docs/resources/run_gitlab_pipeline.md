@@ -68,17 +68,17 @@ Optional:
 
 Optional:
 
-- `dynamic_value` (Attributes) Dynamic value. (see [below for nested schema](#nestedatt--spec--parameters--value--dynamic_value))
-- `static_value` (String) Static value.
+- `dynamic_value` (Attributes) (see [below for nested schema](#nestedatt--spec--parameters--value--dynamic_value))
+- `static_value` (String)
 
 <a id="nestedatt--spec--parameters--value--dynamic_value"></a>
 ### Nested Schema for `spec.parameters.value.dynamic_value`
 
 Optional:
 
-- `field` (String) Field to watch.
-- `path` (String) Path to the value.
-- `where` (String) Where clause to filter the results.
+- `field` (String)
+- `path` (String)
+- `where` (String)
 
 
 

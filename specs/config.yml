@@ -7,36 +7,6 @@ data_sources:
       path: /apps/gitlab.eda.nokia.com
       method: GET
 
-  cluster_gitlab_instance:
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
-      method: GET
-
-  cluster_gitlab_instance_list:
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances
-      method: GET
-
-  cluster_gitlab_issue:
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
-      method: GET
-
-  cluster_gitlab_issue_list:
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues
-      method: GET
-
-  cluster_gitlab_pipeline:
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
-      method: GET
-
-  cluster_gitlab_pipeline_list:
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines
-      method: GET
-
   create_gitlab_issue:
     read:
       path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}
@@ -98,48 +68,6 @@ data_sources:
       method: GET
 
 resources:
-  cluster_gitlab_instance:
-    create:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances
-      method: POST
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
-      method: GET
-    update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
-      method: PUT
-    delete:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
-      method: DELETE
-
-  cluster_gitlab_issue:
-    create:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues
-      method: POST
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
-      method: GET
-    update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
-      method: PUT
-    delete:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
-      method: DELETE
-
-  cluster_gitlab_pipeline:
-    create:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines
-      method: POST
-    read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
-      method: GET
-    update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
-      method: PUT
-    delete:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
-      method: DELETE
-
   create_gitlab_issue:
     create:
       path: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues

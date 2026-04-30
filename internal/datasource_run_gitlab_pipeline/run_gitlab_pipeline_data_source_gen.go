@@ -113,19 +113,13 @@ func RunGitlabPipelineDataSourceSchema(ctx context.Context) schema.Schema {
 										"dynamic_value": schema.SingleNestedAttribute{
 											Attributes: map[string]schema.Attribute{
 												"field": schema.StringAttribute{
-													Optional:            true,
-													Description:         "Field to watch.",
-													MarkdownDescription: "Field to watch.",
+													Optional: true,
 												},
 												"path": schema.StringAttribute{
-													Optional:            true,
-													Description:         "Path to the value.",
-													MarkdownDescription: "Path to the value.",
+													Optional: true,
 												},
 												"where": schema.StringAttribute{
-													Optional:            true,
-													Description:         "Where clause to filter the results.",
-													MarkdownDescription: "Where clause to filter the results.",
+													Optional: true,
 												},
 											},
 											CustomType: DynamicValueType{
@@ -133,14 +127,10 @@ func RunGitlabPipelineDataSourceSchema(ctx context.Context) schema.Schema {
 													AttrTypes: DynamicValueValue{}.AttributeTypes(ctx),
 												},
 											},
-											Optional:            true,
-											Description:         "Dynamic value.",
-											MarkdownDescription: "Dynamic value.",
+											Optional: true,
 										},
 										"static_value": schema.StringAttribute{
-											Optional:            true,
-											Description:         "Static value.",
-											MarkdownDescription: "Static value.",
+											Optional: true,
 										},
 									},
 									CustomType: ValueType{
