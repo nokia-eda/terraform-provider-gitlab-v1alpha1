@@ -13,7 +13,7 @@ import (
 	"github.com/nokia/eda/apps/terraform-provider-gitlab/internal/tfutils"
 )
 
-const read_ds_clusterGitlabPipeline = "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}"
+const read_ds_clusterGitlabPipeline = "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}"
 
 var (
 	_ datasource.DataSource              = (*clusterGitlabPipelineDataSource)(nil)
@@ -63,8 +63,7 @@ func (d *clusterGitlabPipelineDataSource) Read(ctx context.Context, req datasour
 	t0 := time.Now()
 	result := map[string]any{}
 	err = d.client.GetByQuery(ctx, read_ds_clusterGitlabPipeline, map[string]string{
-		"namespace": tfutils.StringValue(data.Namespace),
-		"name":      tfutils.StringValue(data.Name),
+		"name": tfutils.StringValue(data.Name),
 	}, queryParams, &result)
 
 	tflog.Info(ctx, "Read()::API returned", map[string]any{

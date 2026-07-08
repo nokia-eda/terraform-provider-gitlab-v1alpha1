@@ -346,11 +346,6 @@ func ClusterGitlabPipelineListDataSourceSchema(ctx context.Context) schema.Schem
 				Description:         "Deprecated: a label selector string to filter the results based on CR labels",
 				MarkdownDescription: "Deprecated: a label selector string to filter the results based on CR labels",
 			},
-			"namespace": schema.StringAttribute{
-				Required:            true,
-				Description:         "the namespace scope in which to operate",
-				MarkdownDescription: "the namespace scope in which to operate",
-			},
 		},
 	}
 }
@@ -363,7 +358,6 @@ type ClusterGitlabPipelineListModel struct {
 	Kind          types.String `tfsdk:"kind"`
 	LabelSelector types.String `tfsdk:"label_selector"`
 	Labelselector types.String `tfsdk:"labelselector"`
-	Namespace     types.String `tfsdk:"namespace"`
 }
 
 var _ basetypes.ObjectTypable = ItemsType{}

@@ -86,13 +86,6 @@
                         }
                     },
                     {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "required",
-                            "description": "the namespace scope in which to operate"
-                        }
-                    },
-                    {
                         "name": "alarms",
                         "single_nested": {
                             "computed_optional_required": "computed",
@@ -290,13 +283,6 @@
                         "string": {
                             "computed_optional_required": "computed_optional",
                             "description": "Deprecated: a label selector string to filter the results based on CR labels"
-                        }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "required",
-                            "description": "the namespace scope in which to operate"
                         }
                     },
                     {
@@ -505,13 +491,6 @@
                         "string": {
                             "computed_optional_required": "computed_optional",
                             "description": "resource content will be returned as it was at the time of this git hash"
-                        }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "required",
-                            "description": "the namespace scope in which to operate"
                         }
                     },
                     {
@@ -810,13 +789,6 @@
                         "string": {
                             "computed_optional_required": "computed_optional",
                             "description": "Deprecated: a label selector string to filter the results based on CR labels"
-                        }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "required",
-                            "description": "the namespace scope in which to operate"
                         }
                     },
                     {
@@ -1123,13 +1095,6 @@
                         "string": {
                             "computed_optional_required": "computed_optional",
                             "description": "resource content will be returned as it was at the time of this git hash"
-                        }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "required",
-                            "description": "the namespace scope in which to operate"
                         }
                     },
                     {
@@ -1505,13 +1470,6 @@
                         "string": {
                             "computed_optional_required": "computed_optional",
                             "description": "Deprecated: a label selector string to filter the results based on CR labels"
-                        }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "required",
-                            "description": "the namespace scope in which to operate"
                         }
                     },
                     {
@@ -4777,7 +4735,10 @@
                                 {
                                     "name": "namespace",
                                     "string": {
-                                        "computed_optional_required": "required"
+                                        "computed_optional_required": "computed_optional",
+                                        "default": {
+                                            "static": "eda-system"
+                                        }
                                     }
                                 }
                             ]
@@ -4857,13 +4818,6 @@
                         "string": {
                             "computed_optional_required": "computed_optional",
                             "description": "name of the ClusterGitlabInstance"
-                        }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "computed_optional",
-                            "description": "the namespace scope in which to operate"
                         }
                     }
                 ]
@@ -5024,7 +4978,10 @@
                                 {
                                     "name": "namespace",
                                     "string": {
-                                        "computed_optional_required": "required"
+                                        "computed_optional_required": "computed_optional",
+                                        "default": {
+                                            "static": "eda-system"
+                                        }
                                     }
                                 }
                             ]
@@ -5203,13 +5160,6 @@
                             "computed_optional_required": "computed_optional",
                             "description": "name of the ClusterGitlabIssue"
                         }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "computed_optional",
-                            "description": "the namespace scope in which to operate"
-                        }
                     }
                 ]
             }
@@ -5369,7 +5319,10 @@
                                 {
                                     "name": "namespace",
                                     "string": {
-                                        "computed_optional_required": "required"
+                                        "computed_optional_required": "computed_optional",
+                                        "default": {
+                                            "static": "eda-system"
+                                        }
                                     }
                                 }
                             ]
@@ -5710,13 +5663,6 @@
                         "string": {
                             "computed_optional_required": "computed_optional",
                             "description": "name of the ClusterGitlabPipeline"
-                        }
-                    },
-                    {
-                        "name": "namespace",
-                        "string": {
-                            "computed_optional_required": "computed_optional",
-                            "description": "the namespace scope in which to operate"
                         }
                     }
                 ]

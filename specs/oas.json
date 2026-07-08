@@ -144,24 +144,6 @@
           "value": {
             "description": "This field would be set to the value which the user intends to put in the\nfield referenced by the \"path\" field.  The type of the value should match\nthe type of the field as indicated by the schema of the resource being\npatched.",
             "example": "example for a string field",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              },
-              {
-                "items": {},
-                "type": "array"
-              },
-              {
-                "type": "object"
-              }
-            ],
             "type": "object"
           },
           "x-permissive": {
@@ -1286,18 +1268,19 @@
             }
           },
           "namespace": {
+            "default": "eda-system",
             "type": "string",
             "x-eda-nokia-com": {
               "immutable": true,
               "ui-order-priority": 20,
               "ui-title": "Namespace",
-              "ui-title-key": "namespace"
+              "ui-title-key": "namespace",
+              "ui-visible-if": "false"
             }
           }
         },
         "required": [
-          "name",
-          "namespace"
+          "name"
         ],
         "type": "object",
         "x-eda-nokia-com": {
@@ -1726,18 +1709,19 @@
             }
           },
           "namespace": {
+            "default": "eda-system",
             "type": "string",
             "x-eda-nokia-com": {
               "immutable": true,
               "ui-order-priority": 20,
               "ui-title": "Namespace",
-              "ui-title-key": "namespace"
+              "ui-title-key": "namespace",
+              "ui-visible-if": "false"
             }
           }
         },
         "required": [
-          "name",
-          "namespace"
+          "name"
         ],
         "type": "object",
         "x-eda-nokia-com": {
@@ -2253,18 +2237,19 @@
             }
           },
           "namespace": {
+            "default": "eda-system",
             "type": "string",
             "x-eda-nokia-com": {
               "immutable": true,
               "ui-order-priority": 20,
               "ui-title": "Namespace",
-              "ui-title-key": "namespace"
+              "ui-title-key": "namespace",
+              "ui-visible-if": "false"
             }
           }
         },
         "required": [
-          "name",
-          "namespace"
+          "name"
         ],
         "type": "object",
         "x-eda-nokia-com": {
@@ -4207,6 +4192,81 @@
       }
     },
     "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances": {
+      "delete": {
+        "description": "Delete all instances of ClusterGitlabInstance.  If ClusterGitlabInstance is a namespaced resource, all instances in all namespaces will\nbe deleted, and this is restricted to users with the system-administrator role.\nIf a non-namespaced ClusterGitlabInstance, it deletes all instances of that non-namespaced resource.",
+        "operationId": "deleteAllGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "a label selector string to filter the set of CRs deleted based on CR labels",
+            "in": "query",
+            "name": "labelSelector",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "deprecated": true,
+            "description": "Deprecated: a label selector string to filter the set of CRs deleted based on CR labels",
+            "in": "query",
+            "name": "label-selector",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstanceList"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstanceList"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
       "get": {
         "description": "The resulting resources can optionally be a subset of the resource content by using the \"fields\" query parameter.",
         "operationId": "listGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
@@ -4292,9 +4352,706 @@
         "tags": [
           "apps"
         ]
+      },
+      "post": {
+        "description": "create a non-namespaced ClusterGitlabInstance",
+        "operationId": "createGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/_deleted": {
+      "get": {
+        "operationId": "getDeletedGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance_DeletedResources"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance_DeletedResources"
+                }
+              }
+            },
+            "description": "Returns list of deleted resource entries"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get information about the instances of ClusterGitlabInstance that have been deleted.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}": {
+      "delete": {
+        "description": "delete the specified non-namespaced ClusterGitlabInstance",
+        "operationId": "deleteGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "name of the ClusterGitlabInstance to delete",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "get": {
+        "description": "read the specified non-namespaced ClusterGitlabInstance.  If a git hash query parameter\nis supplied, the resource as it existed at the time of the git hash\nwill be returned. Streaming is not supported when a particular revision\nis asked for.",
+        "operationId": "readGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabInstance",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "resource content will be returned as it was at the time of this git hash",
+            "in": "query",
+            "name": "hash",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "patch": {
+        "description": "patch a non-namespaced ClusterGitlabInstance",
+        "operationId": "patchGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Patch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              }
+            },
+            "description": "The response for a successful EDA resource patch operation."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "put": {
+        "description": "replace a non-namespaced ClusterGitlabInstance",
+        "operationId": "replaceGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}/_revs": {
+      "get": {
+        "operationId": "getHistoryGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabInstance to retrieve",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "maximum number of history entries to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "format": "uint64",
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceHistory"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceHistory"
+                }
+              }
+            },
+            "description": "Returns the change history of the specified resource"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get revision history for the specified non-namespaced ClusterGitlabInstance.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}/_targets": {
+      "get": {
+        "operationId": "getTargetsGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabInstance",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntentTargets"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntentTargets"
+                }
+              }
+            },
+            "description": "Returns the list of intent targets for the specified ClusterGitlabInstance resource."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get intent targets for the specified non-namespaced ClusterGitlabInstance.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}/_topology": {
+      "post": {
+        "operationId": "postTopologyGitlabEdaNokiaComV1alpha1Clustergitlabinstances",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabInstance to retrieve",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/K8STopologyRequest"
+              }
+            }
+          },
+          "description": "the details of topology to retrieve",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTopology"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTopology"
+                }
+              }
+            },
+            "description": "Returns the topology of the specified resource"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Retrieve the topology for the specified non-namespaced ClusterGitlabInstance.",
+        "tags": [
+          "apps"
+        ]
       }
     },
     "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues": {
+      "delete": {
+        "description": "Delete all instances of ClusterGitlabIssue.  If ClusterGitlabIssue is a namespaced resource, all instances in all namespaces will\nbe deleted, and this is restricted to users with the system-administrator role.\nIf a non-namespaced ClusterGitlabIssue, it deletes all instances of that non-namespaced resource.",
+        "operationId": "deleteAllGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "a label selector string to filter the set of CRs deleted based on CR labels",
+            "in": "query",
+            "name": "labelSelector",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "deprecated": true,
+            "description": "Deprecated: a label selector string to filter the set of CRs deleted based on CR labels",
+            "in": "query",
+            "name": "label-selector",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssueList"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssueList"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
       "get": {
         "description": "The resulting resources can optionally be a subset of the resource content by using the \"fields\" query parameter.",
         "operationId": "listGitlabEdaNokiaComV1alpha1Clustergitlabissues",
@@ -4380,9 +5137,706 @@
         "tags": [
           "apps"
         ]
+      },
+      "post": {
+        "description": "create a non-namespaced ClusterGitlabIssue",
+        "operationId": "createGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/_deleted": {
+      "get": {
+        "operationId": "getDeletedGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue_DeletedResources"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue_DeletedResources"
+                }
+              }
+            },
+            "description": "Returns list of deleted resource entries"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get information about the instances of ClusterGitlabIssue that have been deleted.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}": {
+      "delete": {
+        "description": "delete the specified non-namespaced ClusterGitlabIssue",
+        "operationId": "deleteGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "name of the ClusterGitlabIssue to delete",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "get": {
+        "description": "read the specified non-namespaced ClusterGitlabIssue.  If a git hash query parameter\nis supplied, the resource as it existed at the time of the git hash\nwill be returned. Streaming is not supported when a particular revision\nis asked for.",
+        "operationId": "readGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabIssue",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "resource content will be returned as it was at the time of this git hash",
+            "in": "query",
+            "name": "hash",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "patch": {
+        "description": "patch a non-namespaced ClusterGitlabIssue",
+        "operationId": "patchGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Patch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              }
+            },
+            "description": "The response for a successful EDA resource patch operation."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "put": {
+        "description": "replace a non-namespaced ClusterGitlabIssue",
+        "operationId": "replaceGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}/_revs": {
+      "get": {
+        "operationId": "getHistoryGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabIssue to retrieve",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "maximum number of history entries to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "format": "uint64",
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceHistory"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceHistory"
+                }
+              }
+            },
+            "description": "Returns the change history of the specified resource"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get revision history for the specified non-namespaced ClusterGitlabIssue.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}/_targets": {
+      "get": {
+        "operationId": "getTargetsGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabIssue",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntentTargets"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntentTargets"
+                }
+              }
+            },
+            "description": "Returns the list of intent targets for the specified ClusterGitlabIssue resource."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get intent targets for the specified non-namespaced ClusterGitlabIssue.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}/_topology": {
+      "post": {
+        "operationId": "postTopologyGitlabEdaNokiaComV1alpha1Clustergitlabissues",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabIssue to retrieve",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/K8STopologyRequest"
+              }
+            }
+          },
+          "description": "the details of topology to retrieve",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTopology"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTopology"
+                }
+              }
+            },
+            "description": "Returns the topology of the specified resource"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Retrieve the topology for the specified non-namespaced ClusterGitlabIssue.",
+        "tags": [
+          "apps"
+        ]
       }
     },
     "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines": {
+      "delete": {
+        "description": "Delete all instances of ClusterGitlabPipeline.  If ClusterGitlabPipeline is a namespaced resource, all instances in all namespaces will\nbe deleted, and this is restricted to users with the system-administrator role.\nIf a non-namespaced ClusterGitlabPipeline, it deletes all instances of that non-namespaced resource.",
+        "operationId": "deleteAllGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "a label selector string to filter the set of CRs deleted based on CR labels",
+            "in": "query",
+            "name": "labelSelector",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "deprecated": true,
+            "description": "Deprecated: a label selector string to filter the set of CRs deleted based on CR labels",
+            "in": "query",
+            "name": "label-selector",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipelineList"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipelineList"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
       "get": {
         "description": "The resulting resources can optionally be a subset of the resource content by using the \"fields\" query parameter.",
         "operationId": "listGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
@@ -4465,6 +5919,628 @@
           }
         },
         "summary": "list clustergitlabpipelines",
+        "tags": [
+          "apps"
+        ]
+      },
+      "post": {
+        "description": "create a non-namespaced ClusterGitlabPipeline",
+        "operationId": "createGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/_deleted": {
+      "get": {
+        "operationId": "getDeletedGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline_DeletedResources"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline_DeletedResources"
+                }
+              }
+            },
+            "description": "Returns list of deleted resource entries"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get information about the instances of ClusterGitlabPipeline that have been deleted.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}": {
+      "delete": {
+        "description": "delete the specified non-namespaced ClusterGitlabPipeline",
+        "operationId": "deleteGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "name of the ClusterGitlabPipeline to delete",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "get": {
+        "description": "read the specified non-namespaced ClusterGitlabPipeline.  If a git hash query parameter\nis supplied, the resource as it existed at the time of the git hash\nwill be returned. Streaming is not supported when a particular revision\nis asked for.",
+        "operationId": "readGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabPipeline",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "resource content will be returned as it was at the time of this git hash",
+            "in": "query",
+            "name": "hash",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "patch": {
+        "description": "patch a non-namespaced ClusterGitlabPipeline",
+        "operationId": "patchGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Patch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              }
+            },
+            "description": "The response for a successful EDA resource patch operation."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      },
+      "put": {
+        "description": "replace a non-namespaced ClusterGitlabPipeline",
+        "operationId": "replaceGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
+            "in": "query",
+            "name": "detailLevel",
+            "schema": {
+              "default": "standard",
+              "enum": [
+                "standard",
+                "detailed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
+            "in": "query",
+            "name": "disableBatching",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}/_revs": {
+      "get": {
+        "operationId": "getHistoryGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabPipeline to retrieve",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "maximum number of history entries to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "format": "uint64",
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceHistory"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceHistory"
+                }
+              }
+            },
+            "description": "Returns the change history of the specified resource"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get revision history for the specified non-namespaced ClusterGitlabPipeline.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}/_targets": {
+      "get": {
+        "operationId": "getTargetsGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabPipeline",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntentTargets"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntentTargets"
+                }
+              }
+            },
+            "description": "Returns the list of intent targets for the specified ClusterGitlabPipeline resource."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Get intent targets for the specified non-namespaced ClusterGitlabPipeline.",
+        "tags": [
+          "apps"
+        ]
+      }
+    },
+    "/apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}/_topology": {
+      "post": {
+        "operationId": "postTopologyGitlabEdaNokiaComV1alpha1Clustergitlabpipelines",
+        "parameters": [
+          {
+            "description": "name of the ClusterGitlabPipeline to retrieve",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "client information for streaming request",
+            "in": "query",
+            "name": "eventclient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "stream information for streaming request",
+            "in": "query",
+            "name": "stream",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/K8STopologyRequest"
+              }
+            }
+          },
+          "description": "the details of topology to retrieve",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTopology"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTopology"
+                }
+              }
+            },
+            "description": "Returns the topology of the specified resource"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Details of an error in response to an API REST request."
+          }
+        },
+        "summary": "Retrieve the topology for the specified non-namespaced ClusterGitlabPipeline.",
         "tags": [
           "apps"
         ]
@@ -4729,2649 +6805,6 @@
           }
         },
         "summary": "list gitlabpipelines",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances": {
-      "delete": {
-        "operationId": "deleteAllGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "a label selector string to filter the set of CRs deleted based on CR labels",
-            "in": "query",
-            "name": "labelSelector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "deprecated": true,
-            "description": "Deprecated: a label selector string to filter the set of CRs deleted based on CR labels",
-            "in": "query",
-            "name": "label-selector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "the namespace scope from which to perform the delete",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstanceList"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstanceList"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Delete all instances of ClusterGitlabInstance in the specified namespace.",
-        "tags": [
-          "apps"
-        ]
-      },
-      "get": {
-        "description": "The resulting resources can optionally be a subset of the resource content by using the \"fields\" query parameter.",
-        "operationId": "listGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "a comma-separated list of resource fields to fetch/return.  If unspecified, all fields are fetched.  If empty, only key-fields are fetched.",
-            "in": "query",
-            "name": "fields",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "an EQL \"where\" expression that will be used to filter the set of resources returned.",
-            "in": "query",
-            "name": "filter",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.",
-            "in": "query",
-            "name": "labelSelector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "deprecated": true,
-            "description": "Deprecated: a label selector string to filter the results based on CR labels",
-            "in": "query",
-            "name": "label-selector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstanceList"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstanceList"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "list clustergitlabinstances in namespace",
-        "tags": [
-          "apps"
-        ]
-      },
-      "post": {
-        "description": "create a ClusterGitlabInstance",
-        "operationId": "createGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/_deleted": {
-      "get": {
-        "operationId": "getDeletedGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance_DeletedResources"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance_DeletedResources"
-                }
-              }
-            },
-            "description": "Returns list of deleted resource entries"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get information about the instances of ClusterGitlabInstance that have been deleted that existed in the specified namespace.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}": {
-      "delete": {
-        "description": "delete the specified ClusterGitlabInstance",
-        "operationId": "deleteGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "the namespace scope from which to perform the delete",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "name of the ClusterGitlabInstance to delete",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "get": {
-        "description": "read the specified ClusterGitlabInstance.  If a git hash query parameter\nis supplied, the resource as it existed at the time of the git hash\nwill be returned. Streaming is not supported when a particular revision\nis asked for.",
-        "operationId": "readGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabInstance",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "resource content will be returned as it was at the time of this git hash",
-            "in": "query",
-            "name": "hash",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "patch": {
-        "description": "patch a ClusterGitlabInstance",
-        "operationId": "patchGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Patch"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              }
-            },
-            "description": "The response for a successful EDA resource patch operation."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "put": {
-        "description": "replace a ClusterGitlabInstance",
-        "operationId": "replaceGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}/_revs": {
-      "get": {
-        "operationId": "getHistoryGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabInstance to retrieve",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope from which to retrieve the result",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "maximum number of history entries to return",
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "format": "uint64",
-              "minimum": 1,
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceHistory"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceHistory"
-                }
-              }
-            },
-            "description": "Returns the change history of the specified resource"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get revision history for the specified namespaced ClusterGitlabInstance.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}/_targets": {
-      "get": {
-        "operationId": "getTargetsGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabInstance",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IntentTargets"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/IntentTargets"
-                }
-              }
-            },
-            "description": "Returns the list of intent targets for the specified ClusterGitlabInstance resource."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get intent targets for the specified namespaced ClusterGitlabInstance.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}/_topology": {
-      "post": {
-        "operationId": "postTopologyGitlabEdaNokiaComV1alpha1NamespaceClustergitlabinstances",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabInstance to retrieve",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope from which to retrieve the result",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/K8STopologyRequest"
-              }
-            }
-          },
-          "description": "the details of topology to retrieve",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceTopology"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceTopology"
-                }
-              }
-            },
-            "description": "Returns the topology of the specified resource"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Retrieve the topology for the specified namespaced ClusterGitlabInstance.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues": {
-      "delete": {
-        "operationId": "deleteAllGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "a label selector string to filter the set of CRs deleted based on CR labels",
-            "in": "query",
-            "name": "labelSelector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "deprecated": true,
-            "description": "Deprecated: a label selector string to filter the set of CRs deleted based on CR labels",
-            "in": "query",
-            "name": "label-selector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "the namespace scope from which to perform the delete",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssueList"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssueList"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Delete all instances of ClusterGitlabIssue in the specified namespace.",
-        "tags": [
-          "apps"
-        ]
-      },
-      "get": {
-        "description": "The resulting resources can optionally be a subset of the resource content by using the \"fields\" query parameter.",
-        "operationId": "listGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "a comma-separated list of resource fields to fetch/return.  If unspecified, all fields are fetched.  If empty, only key-fields are fetched.",
-            "in": "query",
-            "name": "fields",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "an EQL \"where\" expression that will be used to filter the set of resources returned.",
-            "in": "query",
-            "name": "filter",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.",
-            "in": "query",
-            "name": "labelSelector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "deprecated": true,
-            "description": "Deprecated: a label selector string to filter the results based on CR labels",
-            "in": "query",
-            "name": "label-selector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssueList"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssueList"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "list clustergitlabissues in namespace",
-        "tags": [
-          "apps"
-        ]
-      },
-      "post": {
-        "description": "create a ClusterGitlabIssue",
-        "operationId": "createGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/_deleted": {
-      "get": {
-        "operationId": "getDeletedGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue_DeletedResources"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue_DeletedResources"
-                }
-              }
-            },
-            "description": "Returns list of deleted resource entries"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get information about the instances of ClusterGitlabIssue that have been deleted that existed in the specified namespace.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}": {
-      "delete": {
-        "description": "delete the specified ClusterGitlabIssue",
-        "operationId": "deleteGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "the namespace scope from which to perform the delete",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "name of the ClusterGitlabIssue to delete",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "get": {
-        "description": "read the specified ClusterGitlabIssue.  If a git hash query parameter\nis supplied, the resource as it existed at the time of the git hash\nwill be returned. Streaming is not supported when a particular revision\nis asked for.",
-        "operationId": "readGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabIssue",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "resource content will be returned as it was at the time of this git hash",
-            "in": "query",
-            "name": "hash",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "patch": {
-        "description": "patch a ClusterGitlabIssue",
-        "operationId": "patchGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Patch"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              }
-            },
-            "description": "The response for a successful EDA resource patch operation."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "put": {
-        "description": "replace a ClusterGitlabIssue",
-        "operationId": "replaceGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}/_revs": {
-      "get": {
-        "operationId": "getHistoryGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabIssue to retrieve",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope from which to retrieve the result",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "maximum number of history entries to return",
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "format": "uint64",
-              "minimum": 1,
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceHistory"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceHistory"
-                }
-              }
-            },
-            "description": "Returns the change history of the specified resource"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get revision history for the specified namespaced ClusterGitlabIssue.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}/_targets": {
-      "get": {
-        "operationId": "getTargetsGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabIssue",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IntentTargets"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/IntentTargets"
-                }
-              }
-            },
-            "description": "Returns the list of intent targets for the specified ClusterGitlabIssue resource."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get intent targets for the specified namespaced ClusterGitlabIssue.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}/_topology": {
-      "post": {
-        "operationId": "postTopologyGitlabEdaNokiaComV1alpha1NamespaceClustergitlabissues",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabIssue to retrieve",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope from which to retrieve the result",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/K8STopologyRequest"
-              }
-            }
-          },
-          "description": "the details of topology to retrieve",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceTopology"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceTopology"
-                }
-              }
-            },
-            "description": "Returns the topology of the specified resource"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Retrieve the topology for the specified namespaced ClusterGitlabIssue.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines": {
-      "delete": {
-        "operationId": "deleteAllGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "a label selector string to filter the set of CRs deleted based on CR labels",
-            "in": "query",
-            "name": "labelSelector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "deprecated": true,
-            "description": "Deprecated: a label selector string to filter the set of CRs deleted based on CR labels",
-            "in": "query",
-            "name": "label-selector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "the namespace scope from which to perform the delete",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipelineList"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipelineList"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Delete all instances of ClusterGitlabPipeline in the specified namespace.",
-        "tags": [
-          "apps"
-        ]
-      },
-      "get": {
-        "description": "The resulting resources can optionally be a subset of the resource content by using the \"fields\" query parameter.",
-        "operationId": "listGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "a comma-separated list of resource fields to fetch/return.  If unspecified, all fields are fetched.  If empty, only key-fields are fetched.",
-            "in": "query",
-            "name": "fields",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "an EQL \"where\" expression that will be used to filter the set of resources returned.",
-            "in": "query",
-            "name": "filter",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "A label selector string to filter the results based on resource labels. If specified multiple times, the union of resources which satisfy a label-selector will be returned.",
-            "in": "query",
-            "name": "labelSelector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "deprecated": true,
-            "description": "Deprecated: a label selector string to filter the results based on CR labels",
-            "in": "query",
-            "name": "label-selector",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipelineList"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipelineList"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "list clustergitlabpipelines in namespace",
-        "tags": [
-          "apps"
-        ]
-      },
-      "post": {
-        "description": "create a ClusterGitlabPipeline",
-        "operationId": "createGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/_deleted": {
-      "get": {
-        "operationId": "getDeletedGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline_DeletedResources"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline_DeletedResources"
-                }
-              }
-            },
-            "description": "Returns list of deleted resource entries"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get information about the instances of ClusterGitlabPipeline that have been deleted that existed in the specified namespace.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}": {
-      "delete": {
-        "description": "delete the specified ClusterGitlabPipeline",
-        "operationId": "deleteGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "the namespace scope from which to perform the delete",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "name of the ClusterGitlabPipeline to delete",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "get": {
-        "description": "read the specified ClusterGitlabPipeline.  If a git hash query parameter\nis supplied, the resource as it existed at the time of the git hash\nwill be returned. Streaming is not supported when a particular revision\nis asked for.",
-        "operationId": "readGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabPipeline",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "resource content will be returned as it was at the time of this git hash",
-            "in": "query",
-            "name": "hash",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "patch": {
-        "description": "patch a ClusterGitlabPipeline",
-        "operationId": "patchGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Patch"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              }
-            },
-            "description": "The response for a successful EDA resource patch operation."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      },
-      "put": {
-        "description": "replace a ClusterGitlabPipeline",
-        "operationId": "replaceGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "The detail level to keep in the transaction log for the transaction resulting from this request.",
-            "in": "query",
-            "name": "detailLevel",
-            "schema": {
-              "default": "standard",
-              "enum": [
-                "standard",
-                "detailed"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "description": "If true, prevents the transaction resulting from this request from being bundled with others.",
-            "in": "query",
-            "name": "disableBatching",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline"
-                }
-              }
-            },
-            "description": "OK"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}/_revs": {
-      "get": {
-        "operationId": "getHistoryGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabPipeline to retrieve",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope from which to retrieve the result",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "maximum number of history entries to return",
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "format": "uint64",
-              "minimum": 1,
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceHistory"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceHistory"
-                }
-              }
-            },
-            "description": "Returns the change history of the specified resource"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get revision history for the specified namespaced ClusterGitlabPipeline.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}/_targets": {
-      "get": {
-        "operationId": "getTargetsGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabPipeline",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope in which to operate",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IntentTargets"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/IntentTargets"
-                }
-              }
-            },
-            "description": "Returns the list of intent targets for the specified ClusterGitlabPipeline resource."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Get intent targets for the specified namespaced ClusterGitlabPipeline.",
-        "tags": [
-          "apps"
-        ]
-      }
-    },
-    "/apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}/_topology": {
-      "post": {
-        "operationId": "postTopologyGitlabEdaNokiaComV1alpha1NamespaceClustergitlabpipelines",
-        "parameters": [
-          {
-            "description": "name of the ClusterGitlabPipeline to retrieve",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "the namespace scope from which to retrieve the result",
-            "in": "path",
-            "name": "namespace",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "client information for streaming request",
-            "in": "query",
-            "name": "eventclient",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "stream information for streaming request",
-            "in": "query",
-            "name": "stream",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/K8STopologyRequest"
-              }
-            }
-          },
-          "description": "the details of topology to retrieve",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceTopology"
-                }
-              },
-              "application/yaml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceTopology"
-                }
-              }
-            },
-            "description": "Returns the topology of the specified resource"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Details of an error in response to an API REST request."
-          }
-        },
-        "summary": "Retrieve the topology for the specified namespaced ClusterGitlabPipeline.",
         "tags": [
           "apps"
         ]

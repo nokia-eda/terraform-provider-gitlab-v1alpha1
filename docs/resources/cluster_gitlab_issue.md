@@ -27,7 +27,6 @@ description: |-
 - `deviations` (Attributes) (see [below for nested schema](#nestedatt--deviations))
 - `kind` (String)
 - `name` (String) name of the ClusterGitlabIssue
-- `namespace` (String) the namespace scope in which to operate
 - `status` (Attributes) status defines the observed state of ClusterGitlabIssue (see [below for nested schema](#nestedatt--status))
 
 <a id="nestedatt--metadata"></a>
@@ -36,12 +35,12 @@ description: |-
 Required:
 
 - `name` (String)
-- `namespace` (String)
 
 Optional:
 
 - `annotations` (Map of String)
 - `labels` (Map of String)
+- `namespace` (String)
 
 
 <a id="nestedatt--spec"></a>

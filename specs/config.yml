@@ -9,32 +9,32 @@ data_sources:
 
   cluster_gitlab_instance:
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}
       method: GET
 
   cluster_gitlab_instance_list:
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances
       method: GET
 
   cluster_gitlab_issue:
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}
       method: GET
 
   cluster_gitlab_issue_list:
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues
       method: GET
 
   cluster_gitlab_pipeline:
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}
       method: GET
 
   cluster_gitlab_pipeline_list:
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines
       method: GET
 
   create_gitlab_issue:
@@ -100,44 +100,44 @@ data_sources:
 resources:
   cluster_gitlab_instance:
     create:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances
       method: POST
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}
       method: GET
     update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}
       method: PUT
     delete:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabinstances/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}
       method: DELETE
 
   cluster_gitlab_issue:
     create:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues
       method: POST
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}
       method: GET
     update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}
       method: PUT
     delete:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabissues/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}
       method: DELETE
 
   cluster_gitlab_pipeline:
     create:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines
       method: POST
     read:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}
       method: GET
     update:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}
       method: PUT
     delete:
-      path: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/clustergitlabpipelines/{name}
+      path: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}
       method: DELETE
 
   create_gitlab_issue:

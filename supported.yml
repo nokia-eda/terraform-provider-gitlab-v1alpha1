@@ -1,0 +1,106 @@
+datasources:
+  - model_name: app_group
+    oas_endpoint: /apps/gitlab.eda.nokia.com
+    oas_schema: AppGroup
+  - model_name: resource_list
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1
+    oas_schema: ResourceList
+  - model_name: cluster_gitlab_instance_list
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstanceList
+  - model_name: cluster_gitlab_instance
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance
+  - model_name: cluster_gitlab_issue_list
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssueList
+  - model_name: cluster_gitlab_issue
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue
+  - model_name: cluster_gitlab_pipeline_list
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipelineList
+  - model_name: cluster_gitlab_pipeline
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline
+  - model_name: gitlab_instance_list
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabInstanceList
+  - model_name: gitlab_instance
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabInstance
+  - model_name: gitlab_issue_list
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabIssueList
+  - model_name: gitlab_issue
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabIssue
+  - model_name: gitlab_pipeline_list
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabPipelineList
+  - model_name: gitlab_pipeline
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabPipeline
+  - model_name: create_gitlab_issue_list
+    oas_endpoint: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.CreateGitlabIssueList
+  - model_name: create_gitlab_issue
+    oas_endpoint: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.CreateGitlabIssue
+  - model_name: workflow_get_inputs_resp_elem
+    oas_endpoint: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues/{name}/_input
+    oas_schema: WorkflowGetInputsRespElem
+  - model_name: run_gitlab_pipeline_list
+    oas_endpoint: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.RunGitlabPipelineList
+  - model_name: run_gitlab_pipeline
+    oas_endpoint: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines/{name}
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.RunGitlabPipeline
+
+resources:
+  - model_name: cluster_gitlab_instance
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance
+  - model_name: cluster_gitlab_issue
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue
+  - model_name: cluster_gitlab_pipeline
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline
+  - model_name: gitlab_instance
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabInstance
+  - model_name: gitlab_issue
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabIssue
+  - model_name: gitlab_pipeline
+    oas_endpoint: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabPipeline
+  - model_name: create_gitlab_issue
+    oas_endpoint: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/creategitlabissues
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.CreateGitlabIssue
+  - model_name: run_gitlab_pipeline
+    oas_endpoint: /workflows/v1/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/rungitlabpipelines
+    oas_schema: com.nokia.eda.gitlab.v1alpha1.RunGitlabPipeline
+
+qualified:
+  datasources:
+    - oas_schema: IntentTargets
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}/_targets
+    - oas_schema: ResourceHistory
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/{name}/_revs
+    - oas_schema: UIResult
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/_ui/{pathname}
+    - oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabInstance_DeletedResources
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabinstances/_deleted
+    - oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabIssue_DeletedResources
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabissues/_deleted
+    - oas_schema: com.nokia.eda.gitlab.v1alpha1.ClusterGitlabPipeline_DeletedResources
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/clustergitlabpipelines/_deleted
+    - oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabInstance_DeletedResources
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabinstances/_deleted
+    - oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabIssue_DeletedResources
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabissues/_deleted
+    - oas_schema: com.nokia.eda.gitlab.v1alpha1.GitlabPipeline_DeletedResources
+      get: /apps/gitlab.eda.nokia.com/v1alpha1/namespaces/{namespace}/gitlabpipelines/_deleted
+  resources:

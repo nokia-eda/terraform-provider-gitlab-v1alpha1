@@ -101,7 +101,9 @@ func ClusterGitlabPipelineResourceSchema(ctx context.Context) schema.Schema {
 						},
 					},
 					"namespace": schema.StringAttribute{
-						Required: true,
+						Optional: true,
+						Computed: true,
+						Default:  stringdefault.StaticString("eda-system"),
 					},
 				},
 				CustomType: MetadataType{
@@ -116,12 +118,6 @@ func ClusterGitlabPipelineResourceSchema(ctx context.Context) schema.Schema {
 				Computed:            true,
 				Description:         "name of the ClusterGitlabPipeline",
 				MarkdownDescription: "name of the ClusterGitlabPipeline",
-			},
-			"namespace": schema.StringAttribute{
-				Optional:            true,
-				Computed:            true,
-				Description:         "the namespace scope in which to operate",
-				MarkdownDescription: "the namespace scope in which to operate",
 			},
 			"spec": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
@@ -379,7 +375,6 @@ type ClusterGitlabPipelineModel struct {
 	Kind       types.String    `tfsdk:"kind"`
 	Metadata   MetadataValue   `tfsdk:"metadata"`
 	Name       types.String    `tfsdk:"name"`
-	Namespace  types.String    `tfsdk:"namespace"`
 	Spec       SpecValue       `tfsdk:"spec"`
 	Status     StatusValue     `tfsdk:"status"`
 }
